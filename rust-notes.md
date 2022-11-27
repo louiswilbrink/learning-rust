@@ -146,10 +146,11 @@
 - The concepts of **ownership**, **borrowing**, and **slices** ensure memory safety in Rust programs at compile time.
 - The biggest source of tech debt comes from the cavalier decision to mutate data.
 - In Rust, there are no `constructor` methods, since there are no classes!
-- **Structs** are basically objects and defined similar to how types and interfaces are defined in TypeScript.
+- **Structs** are a collection of type definitions and defined similarly to how types and interfaces are defined in TypeScript.
 - Rust allows **field init shorthand** like in JavaScript when assigning fields to variables with identical names.
 -  Rust also has a **spread operator** used to combine or update structs.
 - When using the spread operator, or **struct update operator**, any fields containing vector data forces the assignment to *move* to the new variable, invalidating the source variable.  Only when all update fields implement the `Copy` trait would both variables remain valid.
+- It is possible for a **struct** to store *references* to data owned by *something else*, which requires the use of **lifetimes**.
 - **Tuple structs** are lists with defined types for each element.
 - **Unit-like structs** are structs without any fields.
 - Rust doesn't automatically print tuples or structs to the console.  To do so, add the **debug attribute** to the variable type definition, which adds the `Debug` trait.
@@ -168,6 +169,7 @@
 - The `Option<T>` type has methods to check for `None`, or to convert the value into a specific result.
 - Rust has way more than a `getOrElse()` method like Scala has.
 - To get the value of a `Option<T>` type, use the `unwrap()` method.
+- Use the method `unwrap_or(some_value)` to evaluate to a default value if the `Option<T>` is `None`.
 - In a `match` expression, the Rust compiler confirms that *all possible cases* are handled.
 - The `if let` syntactic sugar is useful when you only want to match one pattern and ignore all of the rest.
 - Rust's modules system is composed of **paths**, **modules**, **crates**, and **packages**.
@@ -180,7 +182,52 @@
 - Starting relative paths using the `super` keyword is shorthand for referencing the parent module (or `..` syntax in Unix).
 - Use the `super` keyword when referencing parent module items is often needed in the child module. 
 - Making a **struct** public using `pub` *doesn't* make all of it's field public.  However, making an `enum` public *does* make all it's variants public.
-- 
+- Rust's vector data structures are colloquially called **collections**, and are stored on the **heap**.
+- The **vector** data structure is a list that you can grow and shrink using `push` & `pop` methods.  They contain data of the *same type* and are stored on the **heap**.
+- In Rust, you can only concat a `String` with a slice (not another `String`).
+- In Rust, the `String` type does not support indexing to access a specific character location.  Since `String` types are stored on the **heap**, accessing an element would mean iterating over the `String` and would *not* be performant.
+- In Rust, the `String` type is a list of **bytes** stored as a vector of `u8` values or Unicode scalar values, or letters.  At compile time, we don't know which encoding is used.
+- Use the `String` method `.chars()` to separate each character in a `String` that you can use to iterated over.
+- In Rust, **Hashmap** keys have a specified type.
+- If you insert a variable into a **Hashmap**, ownership is transferred to the hashmap and the variables will no longer be valid.
+- In many cases, Rust requires you to acknowledge the *possibility* of an error and take some action before your code will compile.
+- Rust groups errors into two main categories: **recoverable** and **unrecoverable** errors.
+- Rust doesn't have **exceptions** (which will always terminate execution).
+- **Recoverable errors** are a special `Result` type which requires handling.
+- **Unrecoverable errors** causes Rust to "panic" and stop execution.
+- When a **panic** occurs, the Rust program will "unwind", meaning Rust walks back up the stack and cleans up data from each scope.
+- In some languages, reading beyond a data structure may result in accessing a different location in memory.  This is called a **buffer overread**.
+- Similar to writing `catch` error notifications, Rustaceans will use the `.expect()` method to clarify what went wrong.
+- All actions the might fail, such as opening a file or requesting data from a server, should return a `Result<T,E>` enum in order to handle errors.
+- In Rust, errors should be propagated from low-level functions to calling functions.
+- The `?` operator evaluates the result of an operation and will return an error to the calling function on failure; otherwise it will resolve to the value inside `Ok` variant.
+- The `?` operator provides **optional chaining**.
+- The `?` operator can *only* be used in functions with `Result<T,E>` return type.
+- Rust makes potential values *knowable*: a function will either have a successful or failed `Result` *or* an **optional value** of `Some` or `None`.
+- Types can have **validations** that checks input values for correctness when invoking it's `new` method.
+- **Validations** provide confidence to functions that the values in a type conform to certain constraints & expectations.
+- **Generic types** are used to allow functions to accept different parameter types, making them more flexible.
+- Using **generics** in function signatures, **structs**, or **enums** requires annotating their *names* with `<T>`.
+- Even **structs** and **enums** can have methods; they're defined in the same implentation closure.
+- In Rust, available methods in a generic type *might only be defined* for specific types.
+- A **types** behavior consists of its **methods**.
+- **Traits** are methods that can be shared among **types**.
+- **Traits** define shared behavior among **types**.
+- **Trait bounds** specify that a **generic type** can be any type that has *certain behavior*.
+- **Traits** are analogous to **interfaces** in other languages.
+- **Trait** declarations the method *signature* while each **type** *implementing* this trait will define its own method *body*.
+- **Traits** declarations *can* include a method body in order to define default behavior.
+- **Types** effectively *override* a **trait's** default behavior when defining the trait's method body.
+- **Traits** allow you to compose behavior in **types**, saving a lot of duplication and encouraging code reuse and organization.
+- Function parameters may use a *reference to a **trait*** in place of a concrete **type**.  That function parameter gains all trait methods.  The function can be called using any **type** that implements the **trait**.
+- Functions that specify a parameters type as a reference to a **trait** is called the `impl Trait` syntax.
+- The **trait bound** form is the verbose syntax for assigning a parameter a reference to a trait.
+- You can use the `+` operator to implement multiple traits on a single function parameter.
+- Functions can utilize the `where` clause in their signature to specify **trait bounds** in a readable fashion when dealing with multiple generic types.
+- The `impl Trait` syntax can also be a function's return type.
+- Using **traits** as function parameter and return types provides flexibility and encourages code reusability because you can call the function using *any type* that implements those traits.
+- You can only use `impl Trait` syntax if you're returning a single type.
+-  
 
 
 
