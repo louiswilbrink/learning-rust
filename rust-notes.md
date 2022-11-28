@@ -222,14 +222,31 @@
 - Function parameters may use a *reference to a **trait*** in place of a concrete **type**.  That function parameter gains all trait methods.  The function can be called using any **type** that implements the **trait**.
 - Functions that specify a parameters type as a reference to a **trait** is called the `impl Trait` syntax.
 - The **trait bound** form is the verbose syntax for assigning a parameter a reference to a trait.
+- **Trait bound** information in a function signature defines what behaviors are required for any type that might potentially be used when calling the function.
 - You can use the `+` operator to implement multiple traits on a single function parameter.
 - Functions can utilize the `where` clause in their signature to specify **trait bounds** in a readable fashion when dealing with multiple generic types.
 - The `impl Trait` syntax can also be a function's return type.
 - Using **traits** as function parameter and return types provides flexibility and encourages code reusability because you can call the function using *any type* that implements those traits.
 - You can only use `impl Trait` syntax if you're returning a single type.
--  
-
-
+- In function signatures, parameters can have concrete types or **generic** types, or somewhere in between with **traits**, which specifies that the generic type needs to have a particular behavior.
+- **Lifetimes** are a **generic**.
+- **Lifetimes** ensure that references are valid for as long as we need them to be.
+- Every **reference** in Rust has a **lifetime**, which is mostly implicit or inferred.
+- You can prevent **dangling references** with lifetimes.
+- Rust uses a **borrow checker** to ensure at compile time that all reference are valid for as long as we're using them.
+- Rust's **borrow checker** compares scopes to determine when borrows are valid.
+- Sometimes the **borrow checker** cannot determine intrinsically the lifetime of a reference; Adding a **lifetime annotation** provides enough information to the borrow checker to perform its analysis.
+- A **lifetime annotation**, or **lifetime specifier**, describes the relationships of lifetimes of multiple references *without effecting lifetimes*.
+- The names of **lifetime parameters** start with an apostrophe, are all lowercase, and usually very short, just like generic types.  They are added between the `&` and parameter type.
+- Using **lifetime parameters** also requires declaring that a lifetime is being used in the function *itself*, similar to how generic types are declared.
+- **Lifetime annotations** help describe the relationship of lifetimes in a function, allowing the **borrow checker** to know definitively that a reference will remain valid during run time.
+- **Lifetime annotations** relate referenced parameter lifetimes to one another, so that assumptions are not needed.
+- Having functions contain the lifetime contract helps the Rust compiler recognize and enforce the constraints with less inferencing or assumptions.
+- Many of the Rust-only rules (ownership, lifetimes) are aimed at corralling problems into narrow sites in the code, *particularly* in function signatures.
+- **Lifetime annotations** can tell the compiler things like, "Hey the lifetime of the return reference will be at least as long as the smaller of the two reference parameter lifetimes."  Knowing this, the **borrow checker** can tell if a borrowed value does not live long enough.
+- When a function has references as the input parameters *and* return type, then **lifetimes** ensure that valid data makes it into and out of the function without downstream side effects.
+- **Lifetime syntax** is all about connecting the lifetimes of parameters and return values.
+- 
 
 
 
