@@ -1,3 +1,7 @@
+struct ImportantExcerpt<'a> {
+    part: &'a str
+}
+
 fn main_one() {
     let x = 5;
 
@@ -6,13 +10,21 @@ fn main_one() {
     println!("r: {}", r);
 }
 
-fn main() {
+fn main_longest() {
     let string1 = String::from("abcd");
     let string2 = "xyz";
 
     let result = longest(string1.as_str(), string2);
 
     println!("The longest string is {}", result);
+}
+
+fn main() {
+    let novel = String::from("Call me Ishmael.  Some years ago...");
+    let first_sentence = novel.split('.').next().expect("Could not find a '.'");
+    let i = ImportantExcerpt {
+        part: first_sentence,
+    };
 }
 
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {

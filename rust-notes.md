@@ -245,8 +245,10 @@
 - Many of the Rust-only rules (ownership, lifetimes) are aimed at corralling problems into narrow sites in the code, *particularly* in function signatures.
 - **Lifetime annotations** can tell the compiler things like, "Hey the lifetime of the return reference will be at least as long as the smaller of the two reference parameter lifetimes."  Knowing this, the **borrow checker** can tell if a borrowed value does not live long enough.
 - When a function has references as the input parameters *and* return type, then **lifetimes** ensure that valid data makes it into and out of the function without downstream side effects.
-- **Lifetime syntax** is all about connecting the lifetimes of parameters and return values.
-- 
+- **Lifetime syntax** is all about connecting the lifetimes of parameters and return values of a function.
+- You can have **lifetime annotations** in **structs**.
+- Using **lifetime annotations** in **structs** tells the compiler that the instance can't outlive the reference it holds in one of it's fields.
+- **Lifetimes** ensure that references to data are not 
 
 
 
