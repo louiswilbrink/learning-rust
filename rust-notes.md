@@ -8,7 +8,7 @@
 
 - Rust is an *ahead-of-time compile* language.
 - Rust has *no classes*, only **types** and **traits**.
-- Rust is a strong, **statically typed** language meaning that it must know the types of *all variables* at compile time.
+- Rust is a strong, **statically typed** language, meaning that it must know the types of *all variables* at compile time.
 - Rust also has **type inferencing**; Rust will automatically infer a variable's type based on the type of the assigned value.
 - Rust's **types** seem similar to classes because you can have multiple **instances** of a type, and types have **methods**.
 - Rust adheres to **functional scope**.
@@ -20,15 +20,13 @@
 - **Constants** are upper-case & snake-case by convention.
 - **Tuple** and **Arrays** have fixed length.
 - Rust encourages you in favor of **immutibility** but gives you tools to opt out of that when necessary.
-- **Variables** are immutable by default.
-- **Variables** are snake-case by convention.
-- **Variables** are declared using the `let` keyword.
-- Rust avoids bugs that result from changing the value of a variable when certain parts of the code assume that variable's value *never changes*.
+- **Variables** are immutable by default, and declared using the `let` keyword.
+- Rust avoids mutation bugs by making variables immutable by default *or* explicitly conveying intent for mutation using the `mut` keyword.
 - The `mut` keyword makes a variable mutable, but maintains the *same type*.
 - the `mut` keyword aids the programmer by *conveying intent* to change the variable's value in other parts of the code.
 - **Shadowing** lets you *temporarily* reuse the same variable name and assign a new value *and type*.
-- **Shadowing** is achieved when you use the `let` keyword again ahead of a variable that was previously declared.
-- **Shadowing** is often used  when you want to convert a value from one type to another type.
+- **Shadowing** is achieved when you use the `let` keyword *again* ahead of a variable that was previously declared.
+- **Shadowing** is often used  when you want to convert a value from one type to another type without coming up with a new variable name.
 - **Shadowing** ends either when the variable itself is shadowed *again* or when the scope ends.
 - The difference between `mut` and **shadowing** is that shadowing allows you to assign a *different type* to the variable.
 - Calling a function with `!` appended on the end calls a Rust **macro** instead of a function.
@@ -44,7 +42,7 @@
 - A **crate** is a collection of Rust source code files.  **Binary crates** are executable while **library crates** are not executable on their own.
 - `..=` syntax denotes an *inclusive* range.
 - **Enum** is a **type** that could have one of a possible set of values, called **variants**.
-- The `match` expression is a **control flow construct** that executes code based on the expression's resolved **type**.  Similar to **pattern matching** in Scala.
+- The `match` expression is a **control flow construct** that executes code based on the expression's resolved **type**.  This is called **pattern matching** in Scala.
 - A `match` expression's possible patterns are called **arms**.
 - The `loop` keyword continually executes a block of code.  Use this in conjuction with `continue` to restart the loop and `break` to exit the loop.
 - Number literals can use `_` as a visual separator to make the number easier to read, such as `1_000`.
@@ -58,9 +56,8 @@
 - The **unit** value is returned by an expression if no other value is returned.
 - **Arrays** are a collection or list of values with the *same type* and has a *fixed length*.
 - The Rust program will **panic** and say `"index out of bounds"` if you attempt to access an array element past the end of the arrays during runtime.
-- Rust demonstrates its **memory safety principles** by checking for array access beyond the specified fixed length and *immediately exiting*.  This disallows code accessing invalid memory.
+- Rust demonstrates its **memory safety principles** by checking for array access beyond the specified fixed length and *immediately exiting*.  This disallows code from accessing invalid memory.
 - A **Vector Type** is allowed to grow or shrink in size.
-- In Rust, integer division *rounds down* to the nearest integer.
 - `char` literals are specified with single quotes, `String` literals are specified with double quotes.
 - **Functions** are snake-case by convention.
 - Unlike JavaScript, Rust functions can be defined below where they're called (side effect of ahead-of-time compilation).
@@ -95,21 +92,21 @@
 - Pushing data onto a **stack** is *faster* than allocating on the **heap** because the memory allocator doesn't need to search for a place to store new data.
 - Accessing data on the **stack** is *faster* because you don't have to follow a **pointer** to get there.
 - When a function is called, function arguments and local variables get pushed onto a stack, and popped off after execution.
-- One of the main purposes of **Ownership** in Rust is to manage heap data. 
+- One of the main purposes of **Ownership** in Rust is to manage *heap data*. 
 - **Ownership Rules**
   - Each value has an *owner*.
   - There can only be *one owner* at a time.
   - When the owner goes out of scope, the value is *dropped*.
-- Rust does *not* have a garbace collector.
-- You can create a `String` from a string literal using the `from` associated function.
+- Rust does *not* have a garbage collector.
+- You can create a `String` type from a string literal using the `from` associated function.
 - Strings are *not immutable* and are allocated to the **heap**.
 - In Rust, memory is automatically returned once the variable that owns it *goes out of scope*.
-- Rust uses the `drop` function to return memory after a variable goes out of scope.
 - Assigning one variable of *vector* data to another variable *invalidates* the first variable, and compilation will fail if you attempt to reference it again.
 - Assigning a variable of *vector* data to another variable effectively *moves it*.
 - Assigning one variable of *scalar* data to another variable works fine.  Both variables are valid and point to *separate data* on the stack.
 - In Rust, there are no **shallow copies** of vector data; it's more of a **move**.
 - Rust will never automatically create a **deep copy** of your data through assignment.
+- ===============================================READ
 - Rust provides deep copy functionality through the explicit `clone` method, but know that it is always *expensive*.
 - Types with the `Copy` **trait** are able to be trivially copied from one variable to another, and *both* variables remain valid.
 - When a function is called, the *vector* variables used as arguments *move into that function* and are *no longer valid* in the calling function.
@@ -240,15 +237,20 @@
 - The names of **lifetime parameters** start with an apostrophe, are all lowercase, and usually very short, just like generic types.  They are added between the `&` and parameter type.
 - Using **lifetime parameters** also requires declaring that a lifetime is being used in the function *itself*, similar to how generic types are declared.
 - **Lifetime annotations** help describe the relationship of lifetimes in a function, allowing the **borrow checker** to know definitively that a reference will remain valid during run time.
-- **Lifetime annotations** relate referenced parameter lifetimes to one another, so that assumptions are not needed.
+- **Lifetime annotations** relate reference parameter lifetimes to one another, so that assumptions are not needed.
 - Having functions contain the lifetime contract helps the Rust compiler recognize and enforce the constraints with less inferencing or assumptions.
-- Many of the Rust-only rules (ownership, lifetimes) are aimed at corralling problems into narrow sites in the code, *particularly* in function signatures.
-- **Lifetime annotations** can tell the compiler things like, "Hey the lifetime of the return reference will be at least as long as the smaller of the two reference parameter lifetimes."  Knowing this, the **borrow checker** can tell if a borrowed value does not live long enough.
-- When a function has references as the input parameters *and* return type, then **lifetimes** ensure that valid data makes it into and out of the function without downstream side effects.
+- Many of the Rust-only rules (ownership, lifetimes) are aimed at corralling problems into narrow sites in the code, commonly in function signatures.
+- **Lifetime annotations** can tell the compiler things like, "Hey the lifetime of the return reference will be at least as long as the smaller of the two *reference parameter* lifetimes."  Knowing this, the **borrow checker** can tell if a borrowed value does not live long enough.
+- When a function has references as the input parameters *and* return type, then **lifetimes** ensure that valid data makes it into *and out of* the function without downstream side effects.
 - **Lifetime syntax** is all about connecting the lifetimes of parameters and return values of a function.
 - You can have **lifetime annotations** in **structs**.
-- Using **lifetime annotations** in **structs** tells the compiler that the instance can't outlive the reference it holds in one of it's fields.
-- **Lifetimes** ensure that references to data are not 
+- Using **lifetime annotations** in **structs** tells the compiler that the instance can't outlive a reference held in one of it's fields.
+- The **borrow checker** didn't *always* infer reference lifetimes; it required lifetime annotation on *every reference*.  But later versions of Rust added common-sense inferencing (called **lifetime ellision rules**), so only truly ambiguous cases require *explicit* lifetime annotations. 
+- In the background, the compiler will add lifetime annotations according to the **3 lifetime elision rules**.  If after applying the rules the compiler still can't figure out what the return type's lifetime is, the programmer will need to explicitly add lifetime annotations.
+- Lifetimes on parameters are called **input lifetimes** and lifetimes on return values are called **output lifetimes**.
+- A reference that can live for the *entire duration* of the programs is called the **static lifetime**.
+- **Generics**, **trait bounds**, and **lifetimes** all work together to make function calls safe and flexible.
+- Being **type bound** means that only specific types can be used as input parameters.  Being **trait bound** means *any type* that implements those traits or behaviors.
 
 
 
