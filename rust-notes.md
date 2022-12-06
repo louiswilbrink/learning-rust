@@ -106,37 +106,36 @@
 - Assigning one variable of *scalar* data to another variable works fine.  Both variables are valid and point to *separate data* on the stack.
 - In Rust, there are no **shallow copies** of vector data; it's more of a **move**.
 - Rust will never automatically create a **deep copy** of your data through assignment.
-- ===============================================READ
-- Rust provides deep copy functionality through the explicit `clone` method, but know that it is always *expensive*.
-- Types with the `Copy` **trait** are able to be trivially copied from one variable to another, and *both* variables remain valid.
-- When a function is called, the *vector* variables used as arguments *move into that function* and are *no longer valid* in the calling function.
-- Return values transfer ownership to the parent (or calling) function.
-- Rust has a feature for using a value without transferring ownership, called **references**.
+- Rust provides deep copy functionality through the explicit `clone` method, but note that it is always *expensive*.
+- Types with the `Copy` **trait** are able to be *trivially* copied from one variable to another, and *both* variables remain valid.
+- When a function is called, the *vector* variables used as arguments *move into that function* and are *no longer valid* in the calling function.  Use **references** in order to avoid this behavior.
+- Return values transfer ownership back to the parent (or calling) function.
+- Rust has a feature for using a value *without* transferring ownership, called **references**.
 - **Tuples** and **arrays** are saved on the stack.
-- Functional programming builds a functional body; your body can perform hundreds of acts.  Object oriented builds a scene with actors.
+- Functional programming builds a functional body; your body can perform hundreds of acts.  Object-oriented programming builds a scene with actors.
 - In Rust, function calls effectively assigns local variables to arguments and *moves them* to the called function.
 - Rust uses **references** to pass around values *without* transferring ownership.
 - Use **references** to avoid transferring ownership of values to functions.
 - **References** have the `usize` type, an integer value that represents a memory location.  It's a pointer value.
-- The opposite of referencing is **dereferencing** and accomplished by using the `*` operator.
-- The `&` operator lets us create a reference that *refers* to a value but does not own it.
-- Because ownership *isn't* transferred, the value that the reference points to *is not* dropped.
-- The action of creating a reference is called **borrowing**.  You can borrow a value, but you don't *own it*.
-- Through references, Rust allows you to borrow *values*.
-- Like variables, references are immutable by default.
+- The opposite of referencing is **dereferencing** and is accomplished by using the `*` operator.
+- The `&` operator lets us create a reference that *refers* to a value but *does* *not* own it.
+- Because ownership *isn't* transferred, the value that the reference points to *is not* dropped after functional scope is concluded.
+- The action of creating a reference is called **borrowing**.  You can borrow a value, but you don't *own* it.
+- Through **references**, Rust allows you to borrow *values*.
+- Like variables, **references** are immutable by default.
 - You *cannot* mutate a borrowed value unless you add the `mut` keyword in the function signature.
 - **Mutable references** can only be referenced *once*.
-- Rust only allows **mutation** in a very controlled fashion; avoids **data races**.
+- Rust only allows **mutation** in a very controlled fashion, which avoids **data races**.
 - At any given time, you can have *either* one mutable reference *or* any number of *immutable* references.
 - In Rust, you'll always know what will *never* change; and what *can* change is going to be atomic and without side effect.
 - A **reference's scope** starts when it is introduced up until it is *last used*.
 - You can create a mutable reference to a value *after* the *immutable* reference is *last used*.
 - The compiler can tell when a reference is no longer being used (even  before the end of **functional scope**) using **non-lexical lifetimes**.
-- On MQ B2B, the *hardest* bug to resolve was due to mutating data and *not knowing when or where* it was occurring.
+- On MQ B2B, the *hardest* bug to resolve was caused by mutating data and *not knowing when or where* it was occurring.
 - The Rust compiler will not let you create **dangling pointers**.  It will recognize & complain if a value can drop while the reference to it persists.
 - A **slice** is a reference to a contiguous sequence of elements in a collection.  It does *not* have ownership; it is a reference.
 - Slices are of type `&str`.
-- Rust uses ownership rules, enforced at compile time, to eliminate an entire class of memory mismanagement errors.
+- Rust uses **ownership** rules, enforced at compile time, to eliminate an entire class of memory mismanagement errors.
 - In Rust, assessing the value of a reference does *not* require some access method (like in Scala).
 - **String literals** are actually slices of a String type.
 - By using **slices**, we avoid transferring ownership but keep values allocated for the duration of **reference scope**.
@@ -152,10 +151,10 @@
 - **Unit-like structs** are structs without any fields.
 - Rust doesn't automatically print tuples or structs to the console.  To do so, add the **debug attribute** to the variable type definition, which adds the `Debug` trait.
 - The invocation context of an instance is denoted by `self` in Rust, instead of `this` in JavaScript.
-- To define a type's method within the type's **implementation block**.
+- Methods for types are summarized within a separated **implementation block**.
 - Rust allows **getters**, but they are not automatically implemented.
 - Struct fields can be private, and getters can provide a public API to read them.
-- Rust has a feature called **automatic referencing and dereferencing** that makes calling references to method a lot cleaner.
+- Rust has a feature called **automatic referencing and dereferencing** that makes calling references to methods a lot cleaner.
 - In Rust, **type definitions** keep fields and methods separate.
 - **enum definitions** can include an associated value for each variant.
 - **Enum** types can have implementations/methods/associated functions.
@@ -164,7 +163,7 @@
 - You must convert an `Option<T>` to a defined type before you can perform type operations with it.  This avoids all errors related to assuming something isn't `Null` when it turns out it is.
 - If *any* variable might possibly be `Null`, it *must* be an `Option<T>` type.  This forces you to explicitly handle the case where the value is `Null`.  This means all types can be assumed to *not be* `Null`.
 - The `Option<T>` type has methods to check for `None`, or to convert the value into a specific result.
-- Rust has way more than a `getOrElse()` method like Scala has.
+- Rust has multiple variations of the `getOrElse()` method in Scala.
 - To get the value of a `Option<T>` type, use the `unwrap()` method.
 - Use the method `unwrap_or(some_value)` to evaluate to a default value if the `Option<T>` is `None`.
 - In a `match` expression, the Rust compiler confirms that *all possible cases* are handled.
@@ -173,7 +172,7 @@
 - A package may contain multiple **binary crates** but only *one* **library crate**.
 - When declaring modules, the compiler will automatically look for the corresponding file with the same name aka `/src/module_name.rs`.
 - Code within a `module` is private by default.  Use the `pub` keyword to make code public.
-- Rust has everything good: statically typed language, simple memory management, module system, pattern matching, rigid mutability rules.
+- Rust has everything good: statically typed language, simple memory management rules, built-in module system, built-in version management, compiles into agnostic binaries, pattern matching, and rigid mutability rules.  Including Rust in Linux kernels provides a strong industry signal.
 - In Rust, all items in a child module are *private* to the parent module by default.  However, child modules can use items defined in the parent module.
 - Making a module public using the `pub` keyword does *not* make its contents public.
 - Starting relative paths using the `super` keyword is shorthand for referencing the parent module (or `..` syntax in Unix).
@@ -183,7 +182,7 @@
 - The **vector** data structure is a list that you can grow and shrink using `push` & `pop` methods.  They contain data of the *same type* and are stored on the **heap**.
 - In Rust, you can only concat a `String` with a slice (not another `String`).
 - In Rust, the `String` type does not support indexing to access a specific character location.  Since `String` types are stored on the **heap**, accessing an element would mean iterating over the `String` and would *not* be performant.
-- In Rust, the `String` type is a list of **bytes** stored as a vector of `u8` values or Unicode scalar values, or letters.  At compile time, we don't know which encoding is used.
+- In Rust, the `String` type is a list of **bytes** stored as a vector of `u8` values or Unicode scalar values, or letters.  At compile time, we *don't know* which encoding is used.
 - Use the `String` method `.chars()` to separate each character in a `String` that you can use to iterated over.
 - In Rust, **Hashmap** keys have a specified type.
 - If you insert a variable into a **Hashmap**, ownership is transferred to the hashmap and the variables will no longer be valid.
@@ -193,9 +192,9 @@
 - **Recoverable errors** are a special `Result` type which requires handling.
 - **Unrecoverable errors** causes Rust to "panic" and stop execution.
 - When a **panic** occurs, the Rust program will "unwind", meaning Rust walks back up the stack and cleans up data from each scope.
-- In some languages, reading beyond a data structure may result in accessing a different location in memory.  This is called a **buffer overread**.
+- In some languages, reading beyond a data structure may result in accessing a different location in memory.  This is called a **buffer overread**, and Rust will panic and terminate execution before allowing this.
 - Similar to writing `catch` error notifications, Rustaceans will use the `.expect()` method to clarify what went wrong.
-- All actions the might fail, such as opening a file or requesting data from a server, should return a `Result<T,E>` enum in order to handle errors.
+- All actions that *might* fail, such as opening a file or requesting data from a server, should return a `Result<T,E>` enum in order to handle errors.
 - In Rust, errors should be propagated from low-level functions to calling functions.
 - The `?` operator evaluates the result of an operation and will return an error to the calling function on failure; otherwise it will resolve to the value inside `Ok` variant.
 - The `?` operator provides **optional chaining**.
@@ -210,22 +209,21 @@
 - A **types** behavior consists of its **methods**.
 - **Traits** are methods that can be shared among **types**.
 - **Traits** define shared behavior among **types**.
-- **Trait bounds** specify that a **generic type** can be any type that has *certain behavior*.
+- Defining **trait bounds** in a function means that it can accept any generic type as long as it has *certain behavior*.
 - **Traits** are analogous to **interfaces** in other languages.
-- **Trait** declarations the method *signature* while each **type** *implementing* this trait will define its own method *body*.
 - **Traits** declarations *can* include a method body in order to define default behavior.
-- **Types** effectively *override* a **trait's** default behavior when defining the trait's method body.
+- A **type** may override the default behavior of a **trait**.
 - **Traits** allow you to compose behavior in **types**, saving a lot of duplication and encouraging code reuse and organization.
-- Function parameters may use a *reference to a **trait*** in place of a concrete **type**.  That function parameter gains all trait methods.  The function can be called using any **type** that implements the **trait**.
+- Function parameters may use a *reference to a **trait*** instead of a concrete **type**.  That function parameter gains all trait methods.  The function can be called using any **type** that implements the **trait**.
 - Functions that specify a parameters type as a reference to a **trait** is called the `impl Trait` syntax.
-- The **trait bound** form is the verbose syntax for assigning a parameter a reference to a trait.
+- The **trait bound form** is the verbose syntax for assigning a parameter a reference to a trait.
 - **Trait bound** information in a function signature defines what behaviors are required for any type that might potentially be used when calling the function.
 - You can use the `+` operator to implement multiple traits on a single function parameter.
 - Functions can utilize the `where` clause in their signature to specify **trait bounds** in a readable fashion when dealing with multiple generic types.
 - The `impl Trait` syntax can also be a function's return type.
 - Using **traits** as function parameter and return types provides flexibility and encourages code reusability because you can call the function using *any type* that implements those traits.
-- You can only use `impl Trait` syntax if you're returning a single type.
-- In function signatures, parameters can have concrete types or **generic** types, or somewhere in between with **traits**, which specifies that the generic type needs to have a particular behavior.
+- You can only use `impl Trait` syntax if you're returning a *single* type.
+- In function signatures, parameters can have concrete types or **generic** types, or somewhere in between with **traits**, which requires that the generic type needs to have a particular behavior.
 - **Lifetimes** are a **generic**.
 - **Lifetimes** ensure that references are valid for as long as we need them to be.
 - Every **reference** in Rust has a **lifetime**, which is mostly implicit or inferred.
@@ -233,13 +231,13 @@
 - Rust uses a **borrow checker** to ensure at compile time that all reference are valid for as long as we're using them.
 - Rust's **borrow checker** compares scopes to determine when borrows are valid.
 - Sometimes the **borrow checker** cannot determine intrinsically the lifetime of a reference; Adding a **lifetime annotation** provides enough information to the borrow checker to perform its analysis.
-- A **lifetime annotation**, or **lifetime specifier**, describes the relationships of lifetimes of multiple references *without effecting lifetimes*.
+- A **lifetime annotation**, or **lifetime specifier**, describes the relationships of lifetimes of multiple referenced parameters *without effecting lifetimes*.
 - The names of **lifetime parameters** start with an apostrophe, are all lowercase, and usually very short, just like generic types.  They are added between the `&` and parameter type.
-- Using **lifetime parameters** also requires declaring that a lifetime is being used in the function *itself*, similar to how generic types are declared.
+- When specifying **lifetimes**, the function name also needs annotation, similar to how generic types are declared.
 - **Lifetime annotations** help describe the relationship of lifetimes in a function, allowing the **borrow checker** to know definitively that a reference will remain valid during run time.
-- **Lifetime annotations** relate reference parameter lifetimes to one another, so that assumptions are not needed.
-- Having functions contain the lifetime contract helps the Rust compiler recognize and enforce the constraints with less inferencing or assumptions.
-- Many of the Rust-only rules (ownership, lifetimes) are aimed at corralling problems into narrow sites in the code, commonly in function signatures.
+- **Lifetime annotations** relate reference parameter lifetimes to one another, so that assumptions are not needed by the borrow checker.
+- Having functions contain the lifetime contract helps the Rust compiler recognize and enforce the constraints with less inference or assumptions.
+- Many of the Rust-only rules (ownership, lifetimes) are aimed at corralling problems into very narrow sites in the code, commonly in function signatures.
 - **Lifetime annotations** can tell the compiler things like, "Hey the lifetime of the return reference will be at least as long as the smaller of the two *reference parameter* lifetimes."  Knowing this, the **borrow checker** can tell if a borrowed value does not live long enough.
 - When a function has references as the input parameters *and* return type, then **lifetimes** ensure that valid data makes it into *and out of* the function without downstream side effects.
 - **Lifetime syntax** is all about connecting the lifetimes of parameters and return values of a function.
@@ -248,9 +246,9 @@
 - The **borrow checker** didn't *always* infer reference lifetimes; it required lifetime annotation on *every reference*.  But later versions of Rust added common-sense inferencing (called **lifetime ellision rules**), so only truly ambiguous cases require *explicit* lifetime annotations. 
 - In the background, the compiler will add lifetime annotations according to the **3 lifetime elision rules**.  If after applying the rules the compiler still can't figure out what the return type's lifetime is, the programmer will need to explicitly add lifetime annotations.
 - Lifetimes on parameters are called **input lifetimes** and lifetimes on return values are called **output lifetimes**.
-- A reference that can live for the *entire duration* of the programs is called the **static lifetime**.
+- A reference that can live for the *entire duration* of the programs has a **static lifetime**.
 - **Generics**, **trait bounds**, and **lifetimes** all work together to make function calls safe and flexible.
-- Being **type bound** means that only specific types can be used as input parameters.  Being **trait bound** means *any type* that implements those traits or behaviors.
+- 
 
 
 
