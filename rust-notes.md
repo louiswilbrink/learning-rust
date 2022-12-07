@@ -248,6 +248,9 @@
 - Lifetimes on parameters are called **input lifetimes** and lifetimes on return values are called **output lifetimes**.
 - A reference that can live for the *entire duration* of the programs has a **static lifetime**.
 - **Generics**, **trait bounds**, and **lifetimes** all work together to make function calls safe and flexible.
+- In Rust, you can add attributes and metadata to structs, modules, and functions.
+- Rust's built-in testing offers benchmarking, parallel or single-threaded execution, ability to ignore or filter out tests or run a specific test, and has a variety of assertion macros and test attributes to grade functionality.
+- Test functions can specify return types as a means of checking expected values; this is particularly useful when testing functions that return the `Result<T,E>` type.
 - 
 
 
