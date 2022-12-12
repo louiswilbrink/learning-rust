@@ -251,6 +251,7 @@
 - In Rust, you can add attributes and metadata to structs, modules, and functions.
 - Rust's built-in testing offers benchmarking, parallel or single-threaded execution, ability to ignore or filter out tests or run a specific test, and has a variety of assertion macros and test attributes to grade functionality.
 - Test functions can specify return types as a means of checking expected values; this is particularly useful when testing functions that return the `Result<T,E>` type.
+- For string loops, calling `.chars()` on a `String` returns an **iterator** that you can use in a `for..in` loop.
 - 
 
 
