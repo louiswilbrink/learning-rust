@@ -6,11 +6,12 @@
 
 
 
-- Rust is an *ahead-of-time compile* language.
+- Rust is an *ahead-of-time compiled* language.
 - Rust has *no classes*, only **types** and **traits**.
-- Rust is a strong, **statically typed** language, meaning that it must know the types of *all variables* at compile time.
-- Rust also has **type inferencing**; Rust will automatically infer a variable's type based on the type of the assigned value.
-- Rust's **types** seem similar to classes because you can have multiple **instances** of a type, and types have **methods**.
+- Rust has no `NULL` value; use the `Option` type.
+- Rust is a strong, **statically typed** language, meaning that it must know the types of *all variables* (and parameters) at compile time.
+- Rust performs **type inferencing**; Rust will automatically infer a variable's type based on the type of the assigned value.
+- Rust's **types** might seem similar to classes because you can have multiple **instances** of a type, and types have **methods**.
 - Rust adheres to **functional scope**.
 - Rust also has catch-all value  `_` similar to Scala.
 - Rust will **panic** when a program exits with an error.
@@ -18,7 +19,7 @@
 - Rust provides *type-specific* methods to check if overflow occurred.
 - **Constants** are immutable *always*.
 - **Constants** are upper-case & snake-case by convention.
-- **Tuple** and **Arrays** have fixed length.
+- **Tuple** and **Arrays** have *fixed* length.
 - Rust encourages you in favor of **immutibility** but gives you tools to opt out of that when necessary.
 - **Variables** are immutable by default, and declared using the `let` keyword.
 - Rust avoids mutation bugs by making variables immutable by default *or* explicitly conveying intent for mutation using the `mut` keyword.
@@ -56,7 +57,7 @@
 - The **unit** value is returned by an expression if no other value is returned.
 - **Arrays** are a collection or list of values with the *same type* and has a *fixed length*.
 - The Rust program will **panic** and say `"index out of bounds"` if you attempt to access an array element past the end of the arrays during runtime.
-- Rust demonstrates its **memory safety principles** by checking for array access beyond the specified fixed length and *immediately exiting*.  This disallows code from accessing invalid memory.
+- Rust demonstrates its **memory safety principles** by checking for array access beyond the specified fixed length and *immediately exiting*.  Your code is never allowed to access an invalid memory location.
 - A **Vector Type** is allowed to grow or shrink in size.
 - `char` literals are specified with single quotes, `String` literals are specified with double quotes.
 - **Functions** are snake-case by convention.
@@ -98,7 +99,6 @@
   - There can only be *one owner* at a time.
   - When the owner goes out of scope, the value is *dropped*.
 - Rust does *not* have a garbage collector.
-- You can create a `String` type from a string literal using the `from` associated function.
 - Strings are *not immutable* and are allocated to the **heap**.
 - In Rust, memory is automatically returned once the variable that owns it *goes out of scope*.
 - Assigning one variable of *vector* data to another variable *invalidates* the first variable, and compilation will fail if you attempt to reference it again.
@@ -127,7 +127,7 @@
 - **Mutable references** can only be referenced *once*.
 - Rust only allows **mutation** in a very controlled fashion, which avoids **data races**.
 - At any given time, you can have *either* one mutable reference *or* any number of *immutable* references.
-- In Rust, you'll always know what will *never* change; and what *can* change is going to be atomic and without side effect.
+- In Rust, you'll always know what will *never* change; and what *can* change is going to be atomic and with minimal or zero side effect.
 - A **reference's scope** starts when it is introduced up until it is *last used*.
 - You can create a mutable reference to a value *after* the *immutable* reference is *last used*.
 - The compiler can tell when a reference is no longer being used (even  before the end of **functional scope**) using **non-lexical lifetimes**.
