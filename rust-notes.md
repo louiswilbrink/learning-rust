@@ -8,14 +8,13 @@
 
 - Rust is an *ahead-of-time compiled* language.
 - Rust has *no classes*, only **types** and **traits**.
-- Rust has no `NULL` value; use the `Option` type.
+- Rust has no `NULL` value; use the `Option` or `Result` types.
 - Rust is a strong, **statically typed** language, meaning that it must know the types of *all variables* (and parameters) at compile time.
 - Rust performs **type inferencing**; Rust will automatically infer a variable's type based on the type of the assigned value.
 - Rust's **types** might seem similar to classes because you can have multiple **instances** of a type, and types have **methods**.
 - Rust adheres to **functional scope**.
 - Rust also has catch-all value  `_` similar to Scala.
 - Rust will **panic** when a program exits with an error.
-- Rust avoids **memory overflow** errors by using *two's complement wrapping*, but relying on this behavior is considered an error.
 - Rust provides *type-specific* methods to check if overflow occurred.
 - **Constants** are immutable *always*.
 - **Constants** are upper-case & snake-case by convention.
@@ -32,11 +31,11 @@
 - The difference between `mut` and **shadowing** is that shadowing allows you to assign a *different type* to the variable.
 - Calling a function with `!` appended on the end calls a Rust **macro** instead of a function.
 - `use` statements bring a library or **trait** into the **scope** of the program.
-- `&` prepended to an argument denotes that the arguement is a **reference** (aka **pass-by-reference**).
+- `&` prepended to an argument denotes that the arguement is a **reference**.
 - Rust's major advantage is how safe and easy it is to use **references**.
-- **References** are immutable by default.
+- **References** are *immutable* by default.
 - The double colons syntax (`::`) is used to call an **associated function** on a particular **type**.
-- Primatives have an associated function `new` that creates instances of the primative.
+- Primatives have an associated function `new` that creates an instance of the primative.
 - In Rust, `String` is a growable, UTF-8 encoded bit of text.
 - In Rust, the right way to *suppress* warnings is to actually *write error handling.*
 - Rust uses `{}` for String interpolation.
@@ -61,7 +60,7 @@
 - A **Vector Type** is allowed to grow or shrink in size.
 - `char` literals are specified with single quotes, `String` literals are specified with double quotes.
 - **Functions** are snake-case by convention.
-- Unlike JavaScript, Rust functions can be defined below where they're called (side effect of ahead-of-time compilation).
+- Unlike JavaScript, Rust functions can be defined *below* where they're called (side effect of ahead-of-time compilation).
 - In function signatures, you *must* declare the type of each parameter.  Rust *requires* **type annotations**.
 - In Rust, variable assignments are **statements**, not expressions, and do *not* return a value.
 - Function blocks may use the `return` keyword within the function body, but otherwise the *last expression* is implicitly considered to be the return value.
@@ -127,7 +126,7 @@
 - **Mutable references** can only be referenced *once*.
 - Rust only allows **mutation** in a very controlled fashion, which avoids **data races**.
 - At any given time, you can have *either* one mutable reference *or* any number of *immutable* references.
-- In Rust, you'll always know what will *never* change; and what *can* change is going to be atomic and with minimal or zero side effect.
+- In Rust, you'll always know what will *never* change; and what *can* change is going to be atomic and with minimal or zero side effects.
 - A **reference's scope** starts when it is introduced up until it is *last used*.
 - You can create a mutable reference to a value *after* the *immutable* reference is *last used*.
 - The compiler can tell when a reference is no longer being used (even  before the end of **functional scope**) using **non-lexical lifetimes**.
@@ -167,7 +166,7 @@
 - To get the value of a `Option<T>` type, use the `unwrap()` method.
 - Use the method `unwrap_or(some_value)` to evaluate to a default value if the `Option<T>` is `None`.
 - In a `match` expression, the Rust compiler confirms that *all possible cases* are handled.
-- The `if let` syntactic sugar is useful when you only want to match one pattern and ignore all of the rest.
+- The `if let` syntactic sugar is useful when you only want to `match` one pattern and ignore all of the rest.
 - Rust's modules system is composed of **paths**, **modules**, **crates**, and **packages**.
 - A package may contain multiple **binary crates** but only *one* **library crate**.
 - When declaring modules, the compiler will automatically look for the corresponding file with the same name aka `/src/module_name.rs`.
@@ -228,7 +227,7 @@
 - **Lifetimes** ensure that references are valid for as long as we need them to be.
 - Every **reference** in Rust has a **lifetime**, which is mostly implicit or inferred.
 - You can prevent **dangling references** with lifetimes.
-- Rust uses a **borrow checker** to ensure at compile time that all reference are valid for as long as we're using them.
+- Rust uses a **borrow checker** to ensure at compile time that all references are valid for as long as we're using them.
 - Rust's **borrow checker** compares scopes to determine when borrows are valid.
 - Sometimes the **borrow checker** cannot determine intrinsically the lifetime of a reference; Adding a **lifetime annotation** provides enough information to the borrow checker to perform its analysis.
 - A **lifetime annotation**, or **lifetime specifier**, describes the relationships of lifetimes of multiple referenced parameters *without effecting lifetimes*.

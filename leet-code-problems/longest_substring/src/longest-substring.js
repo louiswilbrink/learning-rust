@@ -36,9 +36,9 @@ function getLongestNonRepeatingString (s) {
 
   // Iterate through each character in the string
   // If the first character, then that's the longest string.
-  // If a second or later character, compare it with the previou character.
-    // If it's different, add that character to the current substring.
-    // If a double, conclude the substring and start a new one with the current character.
+  // If a second or later character, compare it with the previous character.
+  // If it's different, add that character to the current substring.
+  // If a double, conclude the substring and start a new one with the current character.
 
   for (let i = 0; i < characters.length; i++) {
     if (i == 0) {

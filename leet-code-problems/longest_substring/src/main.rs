@@ -31,25 +31,60 @@ fn main() {
     println!("Longest length: {}", longest_length);
 }
 
-fn find_longest_length(s: &str) -> u32 {
+
+fn find_longest_length(mut s: &str) -> u32 {
+    if let 0 | 1 = s.len() {
+        return s.len().try_into().unwrap()
+    }
+
+    let mut substrings: Vec<String> = Vec::new();
+
+    let mut unique_letters: Vec<char> = Vec::new();
+
+    let mut last_letter: char = '*';
+
+    // Loop through each character in the string.
+    for (i, letter) in s.chars().enumerate() {
+        println!("unique_letters: {:?}, Letter: {}, i: {}", &unique_letters, &letter, &i);
+
+        // If current letter is not a repeat, add it to a substring (vec) 
+        // and update last_letter.
+        if last_letter != letter {
+            unique_letters.push(letter);
+            last_letter = letter;
+        } else {
+            // ..otherwise, save unique_letters as a String for `substrings`.
+            substrings.push(unique_letters.into_iter().collect());
+
+            // ..and start a new unique_letters, starting with the repeated character.
+            unique_letters = Vec::new();
+            unique_letters.push(letter);
+        }
+    }
+    
+    // Push any remaining unique_letters into the substrings collection.
+    substrings.push(unique_letters.into_iter().collect());
+
+    println!("Substrings: {:?}", substrings);
+
+    8
+}
+
+fn build_non_repeating_string(s: &str) -> (String, &str) {
     let mut unique_letters: Vec<char> = Vec::new();
 
     // Iterate over the string, bank characters that aren't repeats.
     for letter in s.chars() {
-
-        match unique_letters.last() {
-            Some(last) => {
-                // If next letter is NOT the same as the last letter in our vec, push it in.
-                if letter != *last {
-                    unique_letters.push(letter);
-                }
-            },
-            // Empty vec?  Start by pushing the first letter of the string.
-            None => unique_letters.push(letter)
-        };
+        unique_letters.push(letter);
     }
 
-    println!("Unique letters: {:?}", unique_letters);
+    let unique: String = unique_letters.into_iter().collect();
 
-    unique_letters.len().try_into().unwrap()
+    println!("Unique: {}", unique);
+
+    (String::from("louis"), &s[2..3])
+}
+
+fn print_type_of<T>(_: &T) {
+    println!("{}", std::any::type_name::<T>())
 }
