@@ -26,8 +26,16 @@
 fn main() {
     let s = String::from("catdd");
 
-    let longest_length = find_longest_length(&s);
+    let mut longest_length = find_longest_length(&String::from("catdd"));
+    println!("Longest length: {}", longest_length);
 
+    let longest_length = find_longest_length(&String::from("drinkkcompa"));
+    println!("Longest length: {}", longest_length);
+
+    let longest_length = find_longest_length(&String::from("ddd"));
+    println!("Longest length: {}", longest_length);
+
+    let longest_length = find_longest_length(&String::from("3"));
     println!("Longest length: {}", longest_length);
 }
 
@@ -45,8 +53,6 @@ fn find_longest_length(mut s: &str) -> u32 {
 
     // Loop through each character in the string.
     for (i, letter) in s.chars().enumerate() {
-        println!("unique_letters: {:?}, Letter: {}, i: {}", &unique_letters, &letter, &i);
-
         // If current letter is not a repeat, add it to a substring (vec) 
         // and update last_letter.
         if last_letter != letter {
@@ -65,9 +71,17 @@ fn find_longest_length(mut s: &str) -> u32 {
     // Push any remaining unique_letters into the substrings collection.
     substrings.push(unique_letters.into_iter().collect());
 
-    println!("Substrings: {:?}", substrings);
+    let mut longest = substrings[0].clone();
 
-    8
+    for substring in substrings {
+        if substring.len() > longest.len() {
+            longest = substring.clone();
+        }
+    }
+
+    println!("Longest substring: {}", longest);
+
+    longest.len().try_into().unwrap()
 }
 
 fn build_non_repeating_string(s: &str) -> (String, &str) {
