@@ -100,6 +100,8 @@ fn main() {
     println!("The coin is worth {} cents.", cents);
     
     // Vector declaration.
+    let my_vec = vec![1,2,3];
+    let my_other_vec: Vec<char> = Vec::new();
 
     // 'new' type method.
     // (Also an associated function of a type).
